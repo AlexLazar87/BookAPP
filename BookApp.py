@@ -6,11 +6,24 @@ def add_book():
     with open('booksDB.csv',mode='w') as file:
         writer = csv.DictWriter(file, fieldnames=["BookName","AuthorName","SharedWith","IsRead"])
         writer.writerow({"BookName": book_name,
-                         "AuthorName": author_name})
+                         "AuthorName": author_name,
+                         "SharedWith": 'None',
+                         "IsRead": False})
     print("Book was added succesfully")
 
 def list_books():
-    print("List Books option")
+    import csv
+    with open('booksDB.csv', mode='r') as file:
+        # pasul 1: sa luam toate datele din DB
+        rows = csv.DictReader(file, fieldnames=["BookName","AuthorName","SharedWith","IsRead"])
+        # parcurgem rand cu rand
+        for row in rows:
+            print(f"The Book name is: {row['BookName']}")
+            print(f"The Author Name is: {row['AuthorName']}")
+            print(f"The Book is shared with: {row['SharedWith']}")
+            print(f"The Book is read by: {row['IsRead']}")
+
+
 def update_book():
     print("Update Book option")
 def share_book():
